@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from pathlib import Path
 import os
 from braintree import Configuration, Environment
+from django.template.context_processors import media
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -27,9 +29,10 @@ SECRET_KEY = 'django-insecure-0ozmq)^ncdi3cs5@eq=af@n&p%r=#9pyuqc7h8yuk+=l*ivq)i
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com']
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
 # Application definition
@@ -45,6 +48,9 @@ INSTALLED_APPS = [
     'cart.apps.CartConfig',
     'orders.apps.OrdersConfig',
     'payment.apps.PaymentConfig',
+    'register.apps.RegisterConfig',
+    'crispy_forms',
+    'crispy_bootstrap4',
 ]
 
 MIDDLEWARE = [
@@ -78,8 +84,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'myshop.wsgi.application'
-
-
+LOGIN_REDIRECT_URL = "/"
+# LOGOUT_REDIRECT_URL = "base"
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
@@ -116,6 +122,7 @@ TIME_ZONE = 'America/Chicago'
 LANGUAGE_CODE = 'en-us'
 
 
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 USE_I18N = True
 
@@ -133,21 +140,13 @@ CART_SESSION_ID = 'cart'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-# Braintree settings - replace with your credentials after signing up for braintree account
-BRAINTREE_MERCHANT_ID = 'Merchant ID'  # Merchant ID
-BRAINTREE_PUBLIC_KEY = 'Public Key'   # Public Key
-BRAINTREE_PRIVATE_KEY = 'Private key'  # Private key
 
-
-Configuration.configure(
-    Environment.Sandbox,
-    BRAINTREE_MERCHANT_ID,
-    BRAINTREE_PUBLIC_KEY,
-    BRAINTREE_PRIVATE_KEY
-)
-
-import os
 MEDIA_URL = 'media/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'ibyisiniamabanga@gmail.com'
+EMAIL_HOST_PASSWORD = 'getx ejcz sllh wjkv'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+SERVER_EMAIL = 'root@gmail.com'

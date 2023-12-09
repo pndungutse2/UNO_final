@@ -1049,13 +1049,13 @@ XRegExp = XRegExp || (function (undef) {
                      * - Backreferences without curly brackets end after 1 or 2 digits. Use `${..}` for more digits.
                      * - `$1` is an error if there are no capturing groups.
                      * - `$10` is an error if there are less than 10 capturing groups. Use `${1}0` instead.
-                     * - `$01` is equivalent to `$1` if a capturing group exists, otherwise it's an error.
+                     * - `$02` is equivalent to `$1` if a capturing group exists, otherwise it's an error.
                      * - `$0` (not followed by 1-9), `$00`, and `$&` are the entire match.
                      * Native behavior, for comparison:
                      * - Backreferences end after 1 or 2 digits. Cannot use backreference to capturing group 100+.
                      * - `$1` is a literal `$1` if there are no capturing groups.
                      * - `$10` is `$1` followed by a literal `0` if there are less than 10 capturing groups.
-                     * - `$01` is equivalent to `$1` if a capturing group exists, otherwise it's a literal `$01`.
+                     * - `$02` is equivalent to `$1` if a capturing group exists, otherwise it's a literal `$02`.
                      * - `$0` is a literal `$0`. `$&` is the entire match.
                      */
                     if (!isNaN($2)) {
@@ -2099,7 +2099,7 @@ XRegExp = XRegExp || (function (undef) {
  * var time = XRegExp.build('(?x)^ {{hours}} ({{minutes}}) $', {
  *   hours: XRegExp.build('{{h12}} : | {{h24}}', {
  *     h12: /1[0-2]|0?[1-9]/,
- *     h24: /2[0-3]|[01][0-9]/
+ *     h24: /2[0-3]|[02][0-9]/
  *   }, 'x'),
  *   minutes: /^[0-5][0-9]$/
  * });

@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>{% block title %}Underpaid 'N Overworked{% endblock %}</title>
+  <link href="{% static "css/base.css" %}" rel="stylesheet">
+</head>
+<body>
+<h2>Underpaid 'N Overworked</h2>
+    <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'shop:product_list' %}">Home</a>
+        {% if user.is_authenticated %}
+            <div id="subheader">
+                <div class="cart">
+                    {% with total_items=cart|length %}
+                        {% if cart|length > 0 %}
+                            My cart:
+                            <a href="{% url "cart:cart_detail" %}">
+                                {{ total_items }} item{{ total_items|pluralize }},
+                                ${{ cart.get_total_price }}
+                            </a>
+                        {% else %}
+                                Your cart is empty.
+                        {% endif %}
+                    {% endwith %}
+                </div>
+            </div>
+        {% endif %}
+        </div>
+    <ul class="nav navbar-nav ml-auto">
+        {% if user.is_authenticated %}
+            <li><a class="nav-link" href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-in"></span>Logout</a>
+            </li>
+
+        {% else %}
+            <li><a class="nav-link" href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span>Login</a>
+            </li>
+            <li><a class="nav-link" href="{% url 'register' %}"><span class="glyphicon glyphicon-log-in"></span>Sign Up</a>
+            </li>
+
+        {% endif %}
+    </ul>
+
+<div class="container">
+    {% if user.is_authenticated %}
+        Welcome, {{ user.first_name }} {{ user.last_name }}
+    {% endif %}
+</div>
+
+<div class="container">
+    <br/>
+    {% block content %}
+
+    {% endblock %}
+</div>
+</body>
+</html>
